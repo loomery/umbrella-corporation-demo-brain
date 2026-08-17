@@ -1,0 +1,24 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo \"Read sources.yaml. For each source listed there, check for items newer than what the docs reflect (meetings vs docs/meetings.md, channels for substantive posts, Linear projects vs docs, files in docs/inbox/). Summarise proposed changes across all sources in one message and wait for approval before editing. Proceed silently if nothing is new. Then list logs/ and read the two or three most recent entries for what the last session did, assumed, and left open.\""
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo \"Before responding, identify which live source in sources.yaml owns this answer and read it, or name the source you are consulting.\""
+          }
+        ]
+      }
+    ]
+  }
+}

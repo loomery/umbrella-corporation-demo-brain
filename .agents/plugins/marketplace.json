@@ -1,0 +1,13 @@
+{
+  "name": "umbrella-corporation-brain",
+  "plugins": [
+    {
+      "name": "umbrella-corporation",
+      "description": "Umbrella Corporation project brain — orientation, routing, and sync.",
+      "source": {
+        "source": "local",
+        "path": "."
+      }
+    }
+  ]
+}

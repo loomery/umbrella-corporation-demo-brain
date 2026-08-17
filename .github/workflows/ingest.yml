@@ -1,0 +1,32 @@
+# Fallback scheduled ingest runner.
+#
+# The primary automation path for this project brain is a Claude cloud scheduled
+# routine running under a Loomery steward account. This workflow is the fallback if
+# that isn't set up, or as a manual trigger. OAuth-only sources (e.g. Granola) are not
+# reachable from CI — this can only sync sources that support non-interactive/API
+# access.
+#
+# Ships disabled: the schedule trigger is commented out below. Enable it once
+# TODO(brain): an ANTHROPIC_API_KEY secret has been added to this repo, and once you've
+# confirmed which sources actually work headlessly from CI.
+name: Ingest sync (fallback)
+
+on:
+  workflow_dispatch: {}
+  # schedule:
+  #   - cron: "0 9 * * 1-5"
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: false
+      - uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          prompt: "/brain sync"

@@ -1,0 +1,6 @@
+project: Umbrella Corporation
+slug: umbrella-corporation
+sources:
+
+exclusions:
+  - "Never pull from Loomery-internal Granola folders or other Slack workspaces"

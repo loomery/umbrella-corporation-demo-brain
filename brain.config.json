@@ -1,0 +1,8 @@
+{
+  "project": "Umbrella Corporation",
+  "slug": "umbrella-corporation",
+  "writeMode": "push",
+  "sync": {
+    "proposeBeforeEdit": true
+  }
+}

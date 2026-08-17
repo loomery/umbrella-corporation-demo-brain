@@ -1,0 +1,17 @@
+{
+  "name": "umbrella-corporation-brain",
+  "owner": {
+    "name": "Loomery"
+  },
+  "description": "Umbrella Corporation project brain, installable as the umbrella-corporation plugin.",
+  "plugins": [
+    {
+      "name": "umbrella-corporation",
+      "source": "./",
+      "description": "Umbrella Corporation project brain — orientation, routing, and sync.",
+      "author": {
+        "name": "Loomery"
+      }
+    }
+  ]
+}
