@@ -32,7 +32,7 @@ jobs:
         with:
           node-version: 22
 
-      - name: Use HTTPS for github: dependencies
+      - name: "Use HTTPS for github: dependencies"
         # npm's `github:owner/repo` shorthand shells out to `git ls-remote` over
         # SSH by default, and this runner has no SSH key. loomery/brain-site is
         # public, so a plain anonymous https:// rewrite is enough — no token
