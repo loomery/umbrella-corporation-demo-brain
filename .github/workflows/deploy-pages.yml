@@ -46,6 +46,54 @@ jobs:
       - name: Build site
         run: npx brain-site build
 
+      - name: Rewrite root-absolute asset paths for the Pages subpath
+        # Quartz (as vendored by @loomery/brain-site) emits every internal
+        # asset reference — href/src attributes, CSS url(), the inline
+        # contentIndex.json fetch — as root-absolute ("/index.css", not
+        # "index.css"). That only resolves correctly when the site is served
+        # from a domain root. A GitHub Pages *project* site (no custom domain)
+        # is served from /<repo-name>/ instead, so every asset 404s unless
+        # those paths are rewritten to include that prefix. Quartz's own
+        # `baseUrl` config option does NOT do this — confirmed by reading
+        # quartz/util/path.ts, it's declared but never consumed for path
+        # generation — so this has to happen as a post-build text rewrite.
+        # Scoped to exactly the patterns Quartz/brain-site emit (verified
+        # against this repo's own real 404s), and guarded against ever
+        # touching a protocol-relative "//host/..." URL.
+        #
+        # Known gap: any client-side JS that constructs a URL from data at
+        # runtime (e.g. a search result or graph-node click building
+        # `/<slug>` from contentIndex.json) is NOT reachable by a text
+        # rewrite and may still 404. Page load, styling, and the search
+        # index fetch itself are what this fixes.
+        env:
+          PAGES_PATH_PREFIX: /umbrella-corporation-demo-brain
+        run: |
+          node -e '
+          const fs = require("fs");
+          const path = require("path");
+          const prefix = process.env.PAGES_PATH_PREFIX;
+          const root = ".brain-site/public";
+          const exts = new Set([".html", ".css", ".js", ".json", ".xml"]);
+          function walk(dir) {
+            for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+              const p = path.join(dir, entry.name);
+              if (entry.isDirectory()) walk(p);
+              else if (exts.has(path.extname(entry.name))) rewrite(p);
+            }
+          }
+          function rewrite(file) {
+            const before = fs.readFileSync(file, "utf8");
+            const after = before
+              .replace(/((?:href|src|action)=["\x27])\/(?!\/)/g, "$1" + prefix + "/")
+              .replace(/(url\((?:["\x27])?)\/(?!\/)/g, "$1" + prefix + "/")
+              .replace(/(fetch\((?:["\x27]))\/(?!\/)/g, "$1" + prefix + "/");
+            if (after !== before) fs.writeFileSync(file, after);
+          }
+          walk(root);
+          console.log("Rewrote root-absolute asset paths under " + root);
+          '
+
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
