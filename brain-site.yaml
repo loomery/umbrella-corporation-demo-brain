@@ -1,6 +1,7 @@
 pageTitle: Umbrella Brain
 content: docs
 static: assets/static
+baseUrl: loomery.github.io/umbrella-corporation-demo-brain
 sections:
   timeline:
     source: logs
