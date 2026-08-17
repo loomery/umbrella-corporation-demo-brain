@@ -32,6 +32,17 @@ jobs:
         with:
           node-version: 22
 
+      - name: Authenticate to loomery/brain-site over HTTPS
+        # npm's `github:owner/repo` shorthand shells out to `git ls-remote` over
+        # SSH by default, and this runner has no SSH key. Rewrite ssh:// to an
+        # authenticated https:// URL instead — works whether brain-site is
+        # public (the token is just unused then) or private (the token is
+        # required). BRAIN_SITE_TOKEN is a personal access token with read
+        # access to loomery/brain-site; the default GITHUB_TOKEN can't reach
+        # other private repos in the org.
+        run: |
+          git config --global url."https://x-access-token:${{ secrets.BRAIN_SITE_TOKEN }}@github.com/".insteadOf "ssh://git@github.com/"
+
       - name: Install dependencies
         run: npm install
 
