@@ -7,8 +7,9 @@ orientation layer we build for client engagements. "Umbrella Corporation" is a
 the full disclosure), invented so this demo could be shown off without touching
 anything real. Browse the live site to see the wiki and dashboard this repo generates:
 
-**🔗 [Live demo site](https://<github-username-or-org>.github.io/<repo-name>/)**
-<!-- TODO(tom): fill in the real GitHub Pages URL once this repo has been created on GitHub. -->
+**🔗 [Live demo site](https://loomery.github.io/umbrella-corporation-demo-brain/)**
+<!-- Pages source needs to be flipped to "GitHub Actions" once in repo Settings → Pages
+     before the deploy-pages.yml workflow can actually serve this URL. -->
 
 ---
 
