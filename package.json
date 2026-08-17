@@ -1,0 +1,6 @@
+{
+  "private": true,
+  "dependencies": {
+    "@loomery/brain-site": "github:loomery/brain-site#semver:^1.0.0"
+  }
+}

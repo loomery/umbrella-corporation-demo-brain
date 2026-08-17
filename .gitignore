@@ -2,3 +2,11 @@
 .claude/settings.local.json
 .DS_Store
 Thumbs.db
+
+# Quartz frontend. The version pin (package.json) and the override (brain-site.yaml) are
+# tracked. The generated tree is NOT listed here on purpose: it is registered in
+# .git/info/exclude by `npx brain-site setup`, because Quartz's Static emitter globs with
+# gitignore:true and a .gitignore entry would make every static asset invisible to the
+# build. See docs/meta/2026-08-10-brain-site-extraction-design.md §2.6 in the
+# eque2-chalkstring-brain repo for the full reasoning.
+node_modules/

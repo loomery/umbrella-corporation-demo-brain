@@ -1,6 +1,27 @@
+## 👋 What is this?
+
+This repo is a public demo of **Loomery's project-brain tooling** — the AI-powered
+orientation layer we build for client engagements. "Umbrella Corporation" is a
+**fully fictional placeholder client** (no real company, people, or data — see
+[NOTICE.md](NOTICE.md) and [docs/onboarding-status.md](docs/onboarding-status.md) for
+the full disclosure), invented so this demo could be shown off without touching
+anything real. Browse the live site to see the wiki and dashboard this repo generates:
+
+**🔗 [Live demo site](https://<github-username-or-org>.github.io/<repo-name>/)**
+<!-- TODO(tom): fill in the real GitHub Pages URL once this repo has been created on GitHub. -->
+
+---
+
 # Umbrella Corporation — Project Brain
 
-Created: TODO(brain): engagement start date
+Created: 2026-06-15 (engagement kickoff)
+
+> **Demo brain.** Umbrella Corporation is a fictional client, built to demonstrate
+> Loomery's project-brain tooling end-to-end without touching real client material.
+> Every doc under `docs/` is invented, in the cited style a real brain would use — see
+> `docs/onboarding-status.md` for the full disclosure and what a real onboarding would
+> do differently. See [NOTICE.md](NOTICE.md) for a note on the "Umbrella Corporation"
+> name and logo — no affiliation with Capcom or *Resident Evil*.
 
 This repo is the orientation and routing layer for AI coding agents working on the
 Umbrella Corporation engagement. It does not hold the truth itself — `sources.yaml` points

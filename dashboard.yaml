@@ -1,0 +1,87 @@
+# Ground truth for the dashboard at `/`. Hand-written and human-owned — never
+# rewritten by a sync. Assessed material (RAG, attention, who is doing what)
+# lives in dashboard.status.yaml instead.
+#
+# DEMO BRAIN — see docs/onboarding-status.md. All figures below are simulated.
+#
+# Sources: docs/engagement.md (timeline, phases, goals) and docs/stakeholders.md
+# (the roster).
+
+project: Umbrella Corporation
+subtitle: Hive OS — Phase 1 (Facility Access & Sample Inventory)
+clientLogo: /static/umbrella-logo.svg
+
+# The engagement's own timeline (docs/engagement.md, Timeline): SOW to targeted
+# Phase 1 go-live at the Raccoon City pilot site.
+start: 2026-05-20
+end: 2026-11-13
+
+phases:
+  - { name: Discovery, start: 2026-06-15 }
+  - { name: "Delivery — Sprint 1", start: 2026-08-06 }
+  - { name: "Delivery — Sprint 2", start: 2026-08-13 }
+  - { name: Pilot cutover, start: 2026-11-13 }
+
+milestones:
+  - date: 2026-05-20
+    name: SOW signed
+    done: true
+  - date: 2026-06-15
+    name: Kickoff
+    done: true
+  - date: 2026-07-02
+    name: Facility access discovery
+    done: true
+    label: "Decision: strangler-fig migration, site by site, starting with Raccoon City"
+  - date: 2026-07-16
+    name: Sample inventory discovery
+    done: true
+    label: "Decision: PostgreSQL for all new Hive OS data, Oracle read-only during migration"
+  - date: 2026-07-30
+    name: Phase 1 scope locked
+    done: true
+    label: "Facility Access & Sample Inventory; success metrics agreed; decision: every override a first-class record"
+  - date: 2026-08-06
+    name: Sprint 1 planning
+    done: true
+    label: "Decision: one NestJS service for both Phase 1 modules, not two"
+  - date: 2026-08-11
+    name: Audit export design signed off
+    done: true
+    label: Confirmed with external auditor Meridian & Cole
+  - date: 2026-08-13
+    name: Sprint 1 review / Sprint 2 planning
+    done: true
+    label: Badge-event ingestion working end-to-end in staging
+  - date: 2026-08-14
+    name: Group Steering Committee
+    done: true
+    label: Phase 1 budget on track; Hive OS flagged as a group-wide template candidate
+  - date: 2026-08-20
+    name: Sprint 2 review / Sprint 3 planning
+    owner: Milly
+  - date: 2026-11-13
+    name: Raccoon City pilot cutover
+    label: Phase 1 live, ahead of the 2027 FDA audit cycle
+
+commitments:
+  - date: 2026-08-20
+    text: Deliver sample-record CRUD, audit log view, and the override-approval flow
+    owner: Tom
+
+# No `effort:` block: nothing in this brain records days sold or used, and the
+# Effort module is absent rather than showing a number nobody is tracking.
+
+people:
+  - { name: Brett Thornton, role: Director, org: Loomery }
+  - { name: Milly Allatson, role: Product Manager, org: Loomery }
+  - { name: Tom Holmes, role: Engineer, org: Loomery }
+  - { name: Will Rocha-Thomas, role: Engineer, org: Loomery }
+  - { name: Ines Novak, role: Product Designer, org: Loomery }
+  - { name: Sarah Chen, role: VP R&D Operations (exec sponsor), org: Umbrella Corporation }
+  - { name: Priya Anand, role: Head of Compliance & Quality, org: Umbrella Corporation }
+  - { name: Marcus Webb, role: "Director of IT, Applied Biosciences", org: Umbrella Corporation }
+  - { name: Grace Kowalski, role: Product Owner, org: Umbrella Corporation }
+  - { name: Daniel Osei, role: Engineering Lead, org: Umbrella Corporation }
+  - { name: Wendy Ashford, role: Group CIO, org: Umbrella Corporation }
+  - { name: Robert Kaine, role: Group CFO, org: Umbrella Corporation }

@@ -2,9 +2,12 @@
 
 ## Quick facts
 
-- **Project:** Umbrella Corporation
-- **Engagement phase:** TODO(brain): current phase (discovery / delivery / etc.)
-- **Key contacts:** TODO(brain): client-side and Loomery-side stakeholders (see `docs/stakeholders.md`)
+- **Project:** Umbrella Corporation *(demo brain — fictional client, see
+  `docs/onboarding-status.md`)*
+- **Engagement phase:** Delivery, Phase 1 (Facility Access & Sample Inventory), Sprint 2
+- **Key contacts:** Sarah Chen (exec sponsor), Priya Anand (Compliance & Quality), Grace
+  Kowalski (Product Owner) client-side; Brett Thornton, Milly Allatson, Tom Holmes
+  Loomery-side — see `docs/stakeholders.md`
 
 ## Before you do anything
 

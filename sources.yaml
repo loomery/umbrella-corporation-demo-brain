@@ -1,6 +1,43 @@
 project: Umbrella Corporation
 slug: umbrella-corporation
+
+# DEMO BRAIN — Umbrella Corporation is a fictional client, invented to demonstrate
+# Loomery's project-brain tooling without touching real client material. Every meeting,
+# Slack message, Linear issue, and person named below is simulated for this purpose —
+# none of it is wired to a live MCP connector, and none of it should be treated as real.
+# See docs/onboarding-status.md and logs/2026-08-17-demo-onboarding.md for the full note.
+
 sources:
+  granola:
+    description: >-
+      Simulated meeting notes for the Umbrella Corporation engagement (kickoff,
+      discovery deep-dives, sprint ceremonies). Demo data only — no live Granola
+      folder is connected. Logged in docs/meetings.md.
+    status: simulated
+
+  slack:
+    description: >-
+      Simulated client-facing channel, modelled as #umbrella-loomery on Umbrella
+      Corporation's own Slack workspace. Demo data only — no live Slack workspace is
+      connected.
+    channel: "#umbrella-loomery"
+    status: simulated
+
+  linear:
+    description: >-
+      Simulated delivery project, modelled as the HIVE project in Umbrella
+      Corporation's own Linear workspace, tracking Hive OS delivery work.
+      Demo data only — no live Linear workspace is connected.
+    project: HIVE
+    status: simulated
+
+  google_drive:
+    description: >-
+      Simulated shared folder holding the SOW, architecture diagrams, and compliance
+      reference material for the engagement. Demo data only — no live Drive folder is
+      connected.
+    status: simulated
 
 exclusions:
   - "Never pull from Loomery-internal Granola folders or other Slack workspaces"
+  - "This brain has no real sources to exclude from — see the DEMO BRAIN note above"

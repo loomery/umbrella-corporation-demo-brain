@@ -1,0 +1,7 @@
+pageTitle: Umbrella Brain
+content: docs
+static: assets/static
+sections:
+  timeline:
+    source: logs
+    route: /logs

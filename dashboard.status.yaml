@@ -1,0 +1,87 @@
+# Assessed status for the dashboard at `/`. Regenerated wholesale by `/brain
+# sync` — do not hand-edit expecting it to survive. Ground truth (dates,
+# milestones, the roster) lives in dashboard.yaml.
+#
+# DEMO BRAIN — see docs/onboarding-status.md. All figures below are simulated.
+#
+# Every entry here is grounded in docs/engagement.md and docs/meetings.md as of
+# 2026-08-17.
+
+generatedAt: 2026-08-17
+since: 2026-08-14
+
+status:
+  rag: green
+  headline: Sprint 1 shipped end-to-end in staging; audit export design signed off by the external auditor; group steering committee is watching Phase 1 as a template for the other two divisions
+
+delta: |
+  Sprint 1 closed with the badge-event ingestion pipeline working end-to-end in
+  staging. The external auditor (Meridian & Cole) reviewed and signed off the
+  override-approval record design against 2027 FDA audit expectations, so
+  Sprint 2's audit log view is being built against a validated shape rather
+  than an internal guess. Ines Novak joined for Sprint 2 to design the
+  override-approval and audit-export screens. At the group level, the
+  quarterly Steering Committee confirmed Phase 1 budget is on track and
+  flagged interest in Hive OS as a template for Umbrella Pharmaceuticals' and
+  Umbrella Consumer Health's own legacy plant-ops systems, contingent on a
+  clean Raccoon City pilot cutover.
+
+attention:
+  - text: Group-level scrutiny raises the bar on the pilot cutover
+    detail: a clean Raccoon City cutover is now a precondition for the group CIO's interest in a group-wide template, not just this division's success metric
+    severity: medium
+  - text: Sprint 2 scope depends on design handoff from Ines
+    detail: sample-record CRUD and the audit log view need the override-approval flow design before engineering can finish the sprint
+    severity: low
+  - text: No `src/` submodule yet
+    detail: this is a demo brain with no real client repository; a real engagement at this stage would have hive-os added under src/
+    severity: low
+
+decisions:
+  - { text: "Audit export format signed off directly with the external auditor rather than designed against an internal guess", by: Priya Anand, date: 2026-08-11 }
+  - { text: "Phase 1 scope locked to Facility Access & Sample Inventory; compliance reporting deferred to Phase 2", by: Sarah Chen, date: 2026-07-30 }
+  - { text: "Strangler-fig migration, site by site, starting with Raccoon City", by: Marcus Webb, date: 2026-07-02 }
+  - { text: "PostgreSQL for all new Hive OS data; Oracle read-only during migration", date: 2026-07-16 }
+  - { text: "One NestJS service for both Phase 1 modules, not two microservices", date: 2026-08-06 }
+
+people:
+  - name: Tom Holmes
+    focus: Sprint 2 delivery
+    detail: Building sample-record CRUD and the audit log view against the signed-off export design
+    state: on-track
+  - name: Milly Allatson
+    focus: Sprint ceremonies & steering committee reporting
+    detail: Running sprint planning/review with Grace; reporting Phase 1 status up to the group steering committee
+    state: on-track
+  - name: Ines Novak
+    focus: Override-approval & audit-export screens
+    detail: Joined Sprint 2; design handoff to engineering still pending
+    state: on-track
+  - name: Grace Kowalski
+    focus: Backlog prioritisation
+    state: on-track
+  - name: Priya Anand
+    focus: Compliance sign-off
+    detail: Signed off the audit export design with Meridian & Cole; next gate is Phase 1 UAT ahead of the pilot cutover
+    state: on-track
+  - name: Wendy Ashford
+    focus: Group-wide template evaluation
+    detail: Watching the Raccoon City pilot outcome before considering Hive OS for the other two divisions
+    state: idle
+  - name: Robert Kaine
+    focus: Budget oversight
+    state: idle
+
+keyReads:
+  - { slug: engagement, why: "why Loomery is here, the Phase 1 timeline, and the group-level interest driving extra scrutiny on the pilot cutover" }
+  - { slug: stakeholders, why: "who decides and who to route questions through, across the division and the wider group" }
+  - { slug: product-context, why: "what Hive OS replaces, who uses it, and the compliance domain language" }
+
+# Exactly the sources sources.yaml declares, in its order. `state` is
+# `absent` for all four because this is a demo brain with no live connector —
+# see each `note` for what is actually simulated in its place.
+sources:
+  - { name: Granola, state: absent, note: "demo brain — no live Granola folder connected; meetings in docs/meetings.md are simulated" }
+  - { name: Slack, state: absent, note: "demo brain — modelled as #umbrella-loomery, no live workspace connected" }
+  - { name: Linear, state: absent, note: "demo brain — modelled as project HIVE, no live workspace connected" }
+  - { name: Google Drive, state: absent, note: "demo brain — no live Drive folder connected" }
