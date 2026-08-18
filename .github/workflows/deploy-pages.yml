@@ -73,18 +73,24 @@ jobs:
         # loomery/brain-site#4. This rewrite must not re-prefix those, or
         # they'd end up double-prefixed. Guarded with a negative lookahead so
         # a path already starting with the prefix is left alone.
+        # A prior version of this step used `node -e '...'` with the script
+        # inline in a bash single-quoted string. An apostrophe in one of the
+        # script's own comments ("the 404 pages own link") silently closed
+        # that string early and broke the whole step with a bash syntax
+        # error — a heredoc with a quoted delimiter ('EOF', not EOF) doesn't
+        # have this failure mode: bash treats everything up to the literal
+        # EOF line as opaque text, no escaping of quotes/apostrophes/$ needed.
         env:
           PAGES_PATH_PREFIX: /umbrella-corporation-demo-brain
         run: |
-          node -e '
+          cat > /tmp/rewrite-paths.cjs <<'EOF'
           const fs = require("fs");
           const path = require("path");
           const prefix = process.env.PAGES_PATH_PREFIX;
           const prefixBody = prefix.replace(/^\//, "").replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-          // (\/|$) — also matches the bare "/umbrella-corporation-demo-brain"
-          // with nothing after it (e.g. the built-in 404 page's own
-          // cfg.baseUrl-derived "Return to Homepage" link), not just a path
-          // that continues with a further "/segment".
+          // (\/|$) also matches the bare prefix with nothing after it (e.g.
+          // the built-in 404 pages own cfg.baseUrl-derived "Return to
+          // Homepage" link), not just a path that continues with "/segment".
           const alreadyPrefixed = new RegExp("^" + prefixBody + "(/|$)");
           const root = ".brain-site/public";
           const exts = new Set([".html", ".css", ".js", ".json", ".xml"]);
@@ -111,7 +117,8 @@ jobs:
           }
           walk(root);
           console.log("Rewrote root-absolute asset paths under " + root);
-          '
+          EOF
+          node /tmp/rewrite-paths.cjs
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
