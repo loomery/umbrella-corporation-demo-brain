@@ -66,6 +66,13 @@ jobs:
         # `/<slug>` from contentIndex.json) is NOT reachable by a text
         # rewrite and may still 404. Page load, styling, and the search
         # index fetch itself are what this fixes.
+        #
+        # Double-prefix guard: @loomery/brain-site >= 1.5.0's `baseUrl` key
+        # (set in brain-site.yaml) makes the onboarding emitter's own hrefs
+        # and Mermaid `click` targets already-prefixed at the source — see
+        # loomery/brain-site#4. This rewrite must not re-prefix those, or
+        # they'd end up double-prefixed. Guarded with a negative lookahead so
+        # a path already starting with the prefix is left alone.
         env:
           PAGES_PATH_PREFIX: /umbrella-corporation-demo-brain
         run: |
@@ -73,6 +80,12 @@ jobs:
           const fs = require("fs");
           const path = require("path");
           const prefix = process.env.PAGES_PATH_PREFIX;
+          const prefixBody = prefix.replace(/^\//, "").replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+          // (\/|$) — also matches the bare "/umbrella-corporation-demo-brain"
+          // with nothing after it (e.g. the built-in 404 page's own
+          // cfg.baseUrl-derived "Return to Homepage" link), not just a path
+          // that continues with a further "/segment".
+          const alreadyPrefixed = new RegExp("^" + prefixBody + "(/|$)");
           const root = ".brain-site/public";
           const exts = new Set([".html", ".css", ".js", ".json", ".xml"]);
           function walk(dir) {
@@ -82,12 +95,18 @@ jobs:
               else if (exts.has(path.extname(entry.name))) rewrite(p);
             }
           }
+          function rewriteMatch(rest) {
+            return alreadyPrefixed.test(rest) ? "/" + rest : prefix + "/" + rest;
+          }
           function rewrite(file) {
             const before = fs.readFileSync(file, "utf8");
             const after = before
-              .replace(/((?:href|src|action)=["\x27])\/(?!\/)/g, "$1" + prefix + "/")
-              .replace(/(url\((?:["\x27])?)\/(?!\/)/g, "$1" + prefix + "/")
-              .replace(/(fetch\((?:["\x27]))\/(?!\/)/g, "$1" + prefix + "/");
+              .replace(/((?:href|src|action)=["\x27])\/(?!\/)([^"\x27]*)/g, (_, p1, rest) => p1 + rewriteMatch(rest))
+              .replace(/(url\((?:["\x27])?)\/(?!\/)([^)"\x27]*)/g, (_, p1, rest) => p1 + rewriteMatch(rest))
+              .replace(/(fetch\((?:["\x27]))\/(?!\/)([^"\x27]*)/g, (_, p1, rest) => p1 + rewriteMatch(rest))
+              // The one non-HTML-attribute case: Mermaid `click Id "/slug" "tip"`
+              // directives are HTML-escaped (&quot;) inside a <pre><code> block.
+              .replace(/(click [a-zA-Z0-9_]+ &quot;)\/(?!\/)([^&]*)/g, (_, p1, rest) => p1 + rewriteMatch(rest))
             if (after !== before) fs.writeFileSync(file, after);
           }
           walk(root);
